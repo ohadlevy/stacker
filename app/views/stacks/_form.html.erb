@@ -1,0 +1,12 @@
+<%= form_for @stack do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <h4>Resources</h4>
+  <p> <%= edit_many @stack, Resource %> </p>
+
+
+  <p><%= f.submit %></p>
+<% end %>

@@ -1,0 +1,12 @@
+<% title "Stack" %>
+
+<p>
+  <strong>Name:</strong>
+  <%= @stack.name %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_stack_path(@stack) %> |
+  <%= link_to "Destroy", @stack, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", stacks_path %>
+</p>

@@ -1,0 +1,14 @@
+<%= form_for @resource do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :type %>
+    <%= f.select :type, Resource.subclasses %>
+  </p>
+
+  <p>
+    <%= f.label :name %>
+    <%= f.select :name, Host.allowed_list %>
+  </p>
+
+  <p><%= f.submit %></p>
+<% end %>

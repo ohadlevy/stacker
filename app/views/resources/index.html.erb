@@ -1,0 +1,19 @@
+<% title "Resources" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+  </tr>
+  <% for resource in @resources %>
+    <tr>
+      <td><%= resource.name %></td>
+      <td><%= resource.type %></td>
+      <td><%= link_to "Show", resource %></td>
+      <td><%= link_to "Edit", edit_resource_path(resource) %></td>
+      <td><%= link_to "Destroy", resource, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Resource", new_resource_path %></p>
