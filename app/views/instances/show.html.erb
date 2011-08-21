@@ -1,0 +1,21 @@
+<% title "Instance" %>
+
+<p>
+  <strong>UUID:</strong>
+  <%= @instance.uuid %>
+</p>
+<p>
+  <strong>Stack:</strong>
+  <%= @instance.deployment %>
+</p>
+
+<p>
+  <strong>Resource:</strong>
+  <%= @instance.resource %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_instance_path(@instance) %> |
+  <%= link_to "Destroy", @instance, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", instances_path %>
+</p>

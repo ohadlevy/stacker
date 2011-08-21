@@ -3,14 +3,16 @@
 <table>
   <tr>
     <th>Name</th>
+    <th>Deployments</th>
     <th>Resources</th>
+    <th></th>
   </tr>
   <% for stack in @stacks %>
     <tr>
       <td><%= link_to stack.name, edit_stack_path(stack) %></td>
-      <td><%= stack.resources.count %></td>
+      <td><%= stack.deployments.count %></td>
+      <td><%= stack.stack_resources.deployment_templates.count %></td>
       <td><%= link_to "Destroy", stack, :confirm => 'Are you sure?', :method => :delete %></td>
-      <td><%= link_to_if stack.ready?, "Start" %></td>
     </tr>
   <% end %>
 </table>

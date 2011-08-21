@@ -1,0 +1,18 @@
+<%= form_for @instance do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :uuid %><br />
+    <%= f.text_field :uuid %>
+  </p>
+
+  <p>
+    <%= f.label :stack %><br />
+    <%= f.text_field :stack %>
+  </p>
+
+  <p>
+    <%= f.label :resource %><br />
+    <%= f.text_field :resource %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>

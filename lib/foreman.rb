@@ -3,15 +3,15 @@ require 'json_with_root'
 module Foreman
   autoload :Hostgroup, "foreman/hostgroup.rb"
   autoload :Host, "foreman/host.rb"
-  autoload :Domain, "foreman/domain.rb"
+  autoload :HostParametersAttribute, "foreman/host_parameters_attribute.rb"
 
   class ForemanResource < ActiveResource::Base
 
-    self.site                 = "https://foreman.sat.lab.tlv.redhat.com"
+    self.site                 = APP_CONFIG[:foreman][:url]
     self.format               = :json_with_root
-    self.user                 = "admin"
-    self.password             = "changeme"
-    self.timeout              = 5
+    self.user                 = APP_CONFIG[:foreman][:user]
+    self.password             = APP_CONFIG[:foreman][:pass]
+    self.timeout              = 15
     self.include_root_in_json = true
 
     def headers
@@ -22,12 +22,8 @@ module Foreman
       super.gsub(".json", "")
     end
 
-    def created
-      DateTime.parse @attributes['created'] if @attributes['created_at']
-    end
-
-    def updated
-      DateTime.parse @attributes['updated'] if @attributes['updated_at']
+    def <=> other
+      name <=> other.name
     end
 
   end

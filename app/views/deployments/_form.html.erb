@@ -1,0 +1,21 @@
+<%= form_for @deployment do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <%= f.label :stack_id %><br />
+    <%= f.collection_select :stack_id, Stack.all, :id, :name %>
+  </p>
+
+  <h4>Resources</h4>
+  <% @deployment.stack_resources.each do |mix| %>
+    <%= f.fields_for :stack_resources, mix do |mix_form| -%>
+      <%= render "resources", :f => mix_form %><br>
+    <% end -%>
+  <% end -%>
+
+  <p><%= f.submit %></p>
+<% end %>

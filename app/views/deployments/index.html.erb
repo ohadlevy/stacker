@@ -1,0 +1,24 @@
+<% title "Deployments" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Stack</th>
+    <th>Instances</th>
+    <th></th>
+  </tr>
+  <% for deployment in @deployments %>
+    <tr>
+      <td><%= deployment.name %></td>
+      <td><%= deployment.stack %></td>
+      <td><%= deployment.instances.count %></td>
+      <td>
+        <%= link_to "Show", deployment %>
+        <%= link_to "Edit", edit_deployment_path(deployment) %>
+        <%= link_to "Destroy", deployment, :confirm => 'Are you sure?', :method => :delete %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Deployment", new_deployment_path %></p>

@@ -2,3 +2,6 @@
 db/*.sqlite3
 log/*.log
 tmp/
+.idea
+db/schema.rb
+*swp

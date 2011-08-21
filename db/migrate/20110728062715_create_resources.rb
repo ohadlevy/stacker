@@ -3,7 +3,7 @@ class CreateResources < ActiveRecord::Migration
     create_table :resources do |t|
       t.string :name
       t.string :type
-      t.integer :quantity
+      t.integer :external_resource_id
 
       t.timestamps
     end

@@ -1,0 +1,9 @@
+one:
+  resource: 
+  stack: 
+  name: MyString
+
+two:
+  resource: 
+  stack: 
+  name: MyString

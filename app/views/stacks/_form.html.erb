@@ -5,8 +5,7 @@
     <%= f.text_field :name %>
   </p>
   <h4>Resources</h4>
-  <p> <%= edit_many @stack, Resource %> </p>
-
+  <p> <%= edit_many_checkbox @stack, Resource %> </p>
 
   <p><%= f.submit %></p>
 <% end %>

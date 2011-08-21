@@ -1,0 +1,14 @@
+development:
+  foreman:
+    url:  http://0.0.0.0:3001
+    user: admin
+    pass: changeme
+
+test:
+  domain: test.host
+
+production:
+  foreman:
+    url:  https://foreman
+    user: admin
+    pass: secret

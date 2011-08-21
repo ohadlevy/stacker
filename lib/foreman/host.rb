@@ -4,6 +4,6 @@ module Foreman
     def to_param
       name
     end
-  end
 
+  end
 end

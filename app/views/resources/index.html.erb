@@ -4,14 +4,19 @@
   <tr>
     <th>Name</th>
     <th>Type</th>
+    <th>Instances</th>
+    <th></th>
   </tr>
   <% for resource in @resources %>
     <tr>
       <td><%= resource.name %></td>
-      <td><%= resource.type %></td>
-      <td><%= link_to "Show", resource %></td>
-      <td><%= link_to "Edit", edit_resource_path(resource) %></td>
-      <td><%= link_to "Destroy", resource, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= resource.type.to_s.titleize %></td>
+      <td><%= resource.instances.count %></td>
+      <td>
+        <%= link_to "Show", resource %>
+        <%= link_to "Edit", edit_resource_path(resource) %>
+        <%= link_to "Destroy", resource, :confirm => 'Are you sure?', :method => :delete %>
+      </td>
     </tr>
   <% end %>
 </table>

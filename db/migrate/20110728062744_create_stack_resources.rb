@@ -3,6 +3,8 @@ class CreateStackResources < ActiveRecord::Migration
     create_table :stack_resources do |t|
       t.references :stack
       t.references :resource
+      t.references :deployment
+      t.integer    :quantity, :default => 0
       t.timestamps
     end
   end

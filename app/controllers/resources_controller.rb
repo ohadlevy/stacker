@@ -1,3 +1,4 @@
+# not using inherited resource, as of name clash with the "resource" controller
 class ResourcesController < ApplicationController
   before_filter :find_by_name, :only => %w[ show update edit destroy]
 
@@ -13,7 +14,8 @@ class ResourcesController < ApplicationController
   end
 
   def create
-    @resource = Resource.new(params[:resource])
+    type = params[:resource][:type]
+    @resource = Resource.class_for(type).new(params[:resource])
     if @resource.save
       redirect_to @resource, :notice => "Successfully created resource."
     else

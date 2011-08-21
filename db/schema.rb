@@ -10,11 +10,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110728062744) do
+ActiveRecord::Schema.define(:version => 20110821084553) do
+
+  create_table "deployments", :force => true do |t|
+    t.integer  "stack_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "instances", :force => true do |t|
+    t.integer  "resource_id"
+    t.integer  "deployment_id"
+    t.string   "uuid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "resources", :force => true do |t|
     t.string   "name"
     t.string   "type"
+    t.integer  "external_resource_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -22,6 +38,8 @@ ActiveRecord::Schema.define(:version => 20110728062744) do
   create_table "stack_resources", :force => true do |t|
     t.integer  "stack_id"
     t.integer  "resource_id"
+    t.integer  "deployment_id"
+    t.integer  "quantity",      :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

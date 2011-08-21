@@ -10,6 +10,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def find_by_uuid
+    if params[:id]
+      obj = controller_name.singularize
+      not_found and return unless eval("@#{obj} = #{obj.camelize}.find_by_uuid(params[:id])")
+    end
+  end
+
   def not_found
     respond_to do |format|
       format.html { render "common/404", :status => 404 }
@@ -19,6 +26,5 @@ class ApplicationController < ActionController::Base
     end
     true
   end
-
 
 end

@@ -2,12 +2,16 @@
   <%= f.error_messages %>
   <p>
     <%= f.label :type %>
-    <%= f.select :type, Resource.subclasses %>
+    <%= f.select :type, Resource.subclasses.collect{|r| [r.titleize, r ] } %>
   </p>
 
   <p>
-    <%= f.label :name %>
-    <%= f.select :name, Host.allowed_list %>
+    <%= f.label :external_resource_id, "Template" %>
+    <% if @resource.new_record? -%>
+      <%= f.collection_select :external_resource_id, ForemanHostgroup.list, :id, :label %>
+    <% else -%>
+      <%= f.text_field :name %>
+    <% end -%>
   </p>
 
   <p><%= f.submit %></p>

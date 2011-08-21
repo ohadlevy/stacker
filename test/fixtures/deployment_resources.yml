@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  deployment: 
+  resource: 
+  quanitity: 1
+
+two:
+  deployment: 
+  resource: 
+  quanitity: 1

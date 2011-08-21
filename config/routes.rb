@@ -1,8 +1,9 @@
 Stacker::Application.routes.draw do
-  resources :stack_resources
   constraints(:id => /[^\/]+/) do
     resources :stacks
     resources :resources
+    resources :instances
+    resources :deployments
   end
 
   # The priority is based upon order of creation:

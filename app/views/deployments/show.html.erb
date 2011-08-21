@@ -1,0 +1,16 @@
+<% title "Deployment" %>
+
+<p>
+  <strong>Stack:</strong>
+  <%= @deployment.stack %>
+</p>
+<p>
+  <strong>Name:</strong>
+  <%= @deployment.name %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_deployment_path(@deployment) %> |
+  <%= link_to "Destroy", @deployment, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", deployments_path %>
+</p>

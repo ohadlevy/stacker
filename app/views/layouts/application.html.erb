@@ -10,8 +10,10 @@
   <body>
     <div id="container">
       <div id="menu" class="ra">
-        <%= link_to "Stacks", stacks_path %> |
-        <%= link_to "Resources", resources_path %>
+        <%= link_to "Resources", resources_path %> =>
+        <%= link_to "Stacks", stacks_path %> =>
+        <%= link_to "Deployments", deployments_path %> =>
+        <%= link_to "Instances", instances_path %>
       </div>
  
       <% flash.each do |name, msg| %>
