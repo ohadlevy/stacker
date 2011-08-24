@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(:version => 20110824091531) do
   end
 
   create_table "keys", :force => true do |t|
+    t.string   "key"
     t.integer  "resource_id"
     t.integer  "external_id"
     t.datetime "created_at"

@@ -4,8 +4,7 @@ class Deployment < ActiveRecord::Base
   has_many :stack_resources, :dependent => :destroy
   has_many :resources, :through => :stack_resources, :uniq => true
   has_many :instances
-  has_many :values
-  has_many :keys, :through => :values
+  has_many :keys, :through => :stack
   validates_uniqueness_of :name
   validates_presence_of :name
   validates_associated :stack
