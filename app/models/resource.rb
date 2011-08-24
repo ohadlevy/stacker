@@ -4,6 +4,7 @@ class Resource < ActiveRecord::Base
   has_many :stacks, :through => :stack_resources, :uniq => true
   has_many :deployments, :through => :stack_resources, :uniq => true
   has_many :instances
+  has_many :keys
   validates_presence_of :name, :external_resource_id
   validates_uniqueness_of :name
   validates_uniqueness_of :external_resource_id, :scope => :type
