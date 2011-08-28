@@ -31,6 +31,11 @@ gem 'sqlite3'
 # group :development, :test do
 #   gem 'webrat'
 # end
-gem "nifty-generators", :group => :development
-gem "mocha", :group => :test
-gem "irbtools", :group => :development
+#
+#
+ group :development, :test do
+   gem "nifty-generators"
+   gem "mocha"
+   gem "irbtools"
+   gem "pry"
+ end
