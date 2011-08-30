@@ -16,7 +16,11 @@
       <%= f.fields_for :values do |value| %>
         <%= value.label :value, value.object.name %>
         <%= value.hidden_field :lookup_key_id %>
-        <%= value.text_field :value, :size => 12 %><br>
+        <% if value.object.name =~ /password/ -%>
+          <%= value.password_field :value, :size => 12 %><br>
+        <% else -%>
+          <%= value.text_field :value, :size => 12 %><br>
+        <% end -%>
       <% end -%>
     </td>
   </tr>
