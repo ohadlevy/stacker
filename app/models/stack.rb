@@ -1,5 +1,6 @@
 class Stack < ActiveRecord::Base
   attr_accessible :name, :resource_ids, :key_ids
+  has_many :stack_resources, :dependent => :destroy, :conditions => {:deployment_id => nil}
   has_many :resources, :through => :stack_resources, :uniq => true
   has_many :deployments, :dependent => :destroy
   has_many :stack_keys, :dependent => :destroy

@@ -3,7 +3,7 @@ class Deployment < ActiveRecord::Base
   belongs_to :stack
   has_many :stack_resources, :dependent => :destroy
   has_many :resources, :through => :stack_resources, :uniq => true
-  has_many :instances
+  has_many :instances, :dependent => :destroy
   validates_uniqueness_of :name
   validates_presence_of :name
   validates_associated :stack
