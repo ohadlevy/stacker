@@ -7,5 +7,12 @@
   <h4>Resources</h4>
   <p> <%= edit_many_checkbox @stack, Resource %> </p>
 
+  <h4>Variables</h4>
+  <% @stack.resources.each do |res| %>
+    <h5> <%= res %></h5>
+
+    <p> <%= edit_many_checkbox @stack, res.keys %> </p>
+  <% end -%>
+
   <p><%= f.submit %></p>
 <% end %>

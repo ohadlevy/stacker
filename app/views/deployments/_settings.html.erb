@@ -1,0 +1,23 @@
+<table>
+  <tr>
+    <th> Resources</th>
+    <th> Parameters</th>
+  </tr>
+  <tr>
+    <td>
+      <% @deployment.stack_resources.each do |mix| %>
+        <%= f.fields_for :stack_resources, mix do |mix_form| -%>
+          <%= render "resources", :f => mix_form %><br>
+        <% end -%>
+      <% end -%>
+    </td>
+    <td>
+
+      <%= f.fields_for :values do |value| %>
+        <%= value.label :value, value.object.name %>
+        <%= value.hidden_field :lookup_key_id %>
+        <%= value.text_field :value, :size => 12 %><br>
+      <% end -%>
+    </td>
+  </tr>
+</table>

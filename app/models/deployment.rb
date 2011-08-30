@@ -1,10 +1,9 @@
 class Deployment < ActiveRecord::Base
-  attr_accessible :stack_id, :name, :stack_resources_attributes
+  attr_accessible :stack_id, :name, :stack_resources_attributes, :values_attributes
   belongs_to :stack
   has_many :stack_resources, :dependent => :destroy
   has_many :resources, :through => :stack_resources, :uniq => true
   has_many :instances
-  has_many :keys, :through => :stack
   validates_uniqueness_of :name
   validates_presence_of :name
   validates_associated :stack
@@ -24,6 +23,18 @@ class Deployment < ActiveRecord::Base
     { :deployment => to_s,:deployment_id => id }
   end
 
+  def values
+    stack.keys.group(:resource_id).map do |key|
+      key.find_by_deployment(id)
+    end.flatten.compact
+  end
+
+  def values_attributes=(values)
+    values.values.each do |value|
+      logger.debug("about to set #{value}")
+      Foreman::LookupValue.create value.update({:match => "deployment_id=#{id}"})
+    end
+  end
 
   private
   # ensure that stack resources are assigned to our deployment

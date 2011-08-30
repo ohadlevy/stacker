@@ -1,6 +1,9 @@
 require 'foreman'
 
 class ForemanHostgroup < Resource
+
+  after_save :update_keys
+
   def class;
     Resource;
   end
@@ -54,6 +57,15 @@ class ForemanHostgroup < Resource
 
   def external_id
     Foreman::Hostgroup.find(external_resource_id)
+  end
+
+  def update_keys
+    external_id.keys.each do |key|
+      k=Key.find_or_create_by_external_id_and_resource_id(key.id, id)
+      k.key = key.key
+      k.save!
+    end
+    #TODO: handle deletion of keys
   end
 
 end
