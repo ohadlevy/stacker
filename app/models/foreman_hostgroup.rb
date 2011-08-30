@@ -4,11 +4,13 @@ class ForemanHostgroup < Resource
 
   after_save :update_keys
 
+  # overrides the default class name
+  # this is required to use the form helpers with STI
   def class;
     Resource;
   end
 
-  # Using foreman hostgroup for now, abstractions later
+  # List of resources templates we can provide
   def self.list
     @allowed_list ||= Foreman::Hostgroup.all.sort{|h,g| h.label <=> g.label}
   end
@@ -39,6 +41,8 @@ class ForemanHostgroup < Resource
 
   private
 
+  # Key Value pairs that would be added to an instance
+  # these are plain foreman parameters
   def parameters deployment
     {
       :resource => name
@@ -47,6 +51,7 @@ class ForemanHostgroup < Resource
     end
   end
 
+  # helper method to construct the required parameters hash
   def instance_attribute key,value
     {:name => key, :value => value, :nested => ""}
   end
@@ -61,9 +66,7 @@ class ForemanHostgroup < Resource
 
   def update_keys
     external_id.keys.each do |key|
-      k=Key.find_or_create_by_external_id_and_resource_id(key.id, id)
-      k.key = key.key
-      k.save!
+      Key.find_or_create_by_external_id_and_resource_id_and_key(key.id, id, key.key)
     end
     #TODO: handle deletion of keys
   end

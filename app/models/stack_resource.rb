@@ -6,7 +6,4 @@ class StackResource < ActiveRecord::Base
   validates_uniqueness_of :deployment_id, :scope => [:resource_id, :stack_id]
   validates_numericality_of :quantity, :allow_nil => true
 
-  # returns all stack_resources which are used as a stack template
-  scope :deployment_templates, where(:deployment_id => nil)
-
 end
