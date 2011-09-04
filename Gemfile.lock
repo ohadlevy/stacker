@@ -39,6 +39,10 @@ GEM
     builder (2.1.2)
     clipboard (0.9.9)
     coderay (0.9.7)
+    daemons (1.1.4)
+    delayed_job (2.1.4)
+      activesupport (~> 3.0)
+      daemons
     erubis (2.6.6)
       abstract (>= 1.0.0)
     every_day_irb (1.0.5)
@@ -137,11 +141,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  delayed_job
   inherited_resources
   irbtools
   jquery-rails
   mocha
   nifty-generators
   pry
-  rails (= 3.0.5)
+  rails (>= 3.0.5)
   sqlite3

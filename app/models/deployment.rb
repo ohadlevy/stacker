@@ -57,12 +57,15 @@ class Deployment < ActiveRecord::Base
       # create missing instances
       count = sr.quantity - instances.where(:resource_id => sr.resource_id).count
       raise ActiveRecord::Rollback, "Decreasing instances is not supported at the moment" if count < 0
-      count.times do
-        Instance.create(:resource_id => sr.resource_id,
-                        :deployment_id => id,
-                        :uuid => sr.resource.create_instance(self).name)
-      end
+      count.times { deploy_instance(sr.resource, self) }
     end
   end
 
+  def deploy_instance(resource, deployment)
+    uuid = resource.create_instance(deployment).name
+    Instance.create(:resource_id => resource.id,
+                    :deployment_id => deployment.id,
+                    :uuid => uuid)
+  end
+  handle_asynchronously :deploy_instance
 end

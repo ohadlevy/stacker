@@ -1,8 +1,9 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.5'
+gem 'rails', '>= 3.0.5'
 gem "jquery-rails"
 gem "inherited_resources"
+gem 'delayed_job'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
