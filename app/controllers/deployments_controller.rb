@@ -6,6 +6,10 @@ class DeploymentsController < InheritedResources::Base
     flash.clear
   end
 
+  def update
+    update! { deployments_url }
+  end
+
   protected
   def resource
     @deployment ||= end_of_association_chain.find_by_name!(params[:id])

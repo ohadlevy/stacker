@@ -17,7 +17,7 @@ class ResourcesController < ApplicationController
     type = params[:resource][:type]
     @resource = Resource.class_for(type).new(params[:resource])
     if @resource.save
-      redirect_to @resource, :notice => "Successfully created resource."
+      redirect_to resources_url, :notice => "Successfully created resource."
     else
       render :action => 'new'
     end
@@ -28,7 +28,7 @@ class ResourcesController < ApplicationController
 
   def update
     if @resource.update_attributes(params[:resource])
-      redirect_to @resource, :notice  => "Successfully updated resource."
+      redirect_to resources_url, :notice  => "Successfully updated resource."
     else
       render :action => 'edit'
     end
