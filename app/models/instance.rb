@@ -14,6 +14,6 @@ class Instance < ActiveRecord::Base
   private
 
   def remove_resource_instance
-    resource.destroy_instance(uuid)
+    resource.delay.destroy_instance(uuid)
   end
 end

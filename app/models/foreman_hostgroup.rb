@@ -12,7 +12,7 @@ class ForemanHostgroup < Resource
 
   # List of resources templates we can provide
   def self.list
-    @allowed_list ||= Foreman::Hostgroup.all.sort{|h,g| h.label <=> g.label}
+    Foreman::Hostgroup.all.sort{|h,g| h.label <=> g.label}
   end
 
   def name
@@ -34,7 +34,7 @@ class ForemanHostgroup < Resource
   end
 
   def destroy_instance(uuid)
-    Foreman::Host.find(uuid).destroy
+    Foreman::Host.delete(uuid)
   rescue ActiveResource::ResourceNotFound
     true
   end
