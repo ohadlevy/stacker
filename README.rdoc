@@ -1,0 +1,54 @@
+= Stacker
+
+== Contributing
+
+* Fork the project
+* Start a feature/bugfix branch
+* Commit and push until you are happy with your contribution
+* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
+* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+
+== Requirements
+
+A working Puppet / Foreman envirnoment
+
+== Installation
+
+git clone git://github.com/ohadlevy/stacker.git
+
+bundle install
+
+edit 
+ config/app_config.yml
+
+Note: You should change the settings for the rails environment you would be running stacker in (e.g. development).
+
+migrate your db:
+
+  rake db:migrate
+
+run the background job:
+ rake jobs:work
+
+and start the web service:
+ ./script/rails s
+
+login to http://0.0.0.0:3000
+
+
+
+== Copyright
+Copyright (c) 2011 Ohad Levy
+
+This program and entire repository is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
