@@ -3,6 +3,7 @@ require 'json_with_root'
 module Foreman
   autoload :Hostgroup, "foreman/hostgroup.rb"
   autoload :Host, "foreman/host.rb"
+  autoload :Fact, "foreman/fact.rb"
   autoload :HostParametersAttribute, "foreman/host_parameters_attribute.rb"
   autoload :Puppetclass, "foreman/puppetclass.rb"
   autoload :LookupKey, "foreman/lookup_key.rb"

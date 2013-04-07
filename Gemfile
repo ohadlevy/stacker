@@ -1,9 +1,10 @@
 source 'http://rubygems.org'
 
-gem 'rails', '>= 3.0.5'
+gem 'rails'
 gem "jquery-rails"
 gem "inherited_resources"
-gem 'delayed_job'
+gem 'delayed_job_active_record'
+gem 'uuidtools'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -36,7 +37,6 @@ gem 'sqlite3'
 #
  group :development, :test do
    gem "nifty-generators"
-   gem "mocha"
-   gem "irbtools"
    gem "pry"
+   gem "pry-doc"
  end
