@@ -1,6 +1,6 @@
 class CreateResources < ActiveRecord::Migration
   def self.up
-    create_table :resources do |t|
+    create_table :stacked_resources do |t|
       t.string :name
       t.string :type
       t.integer :external_resource_id
@@ -10,6 +10,6 @@ class CreateResources < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :resources
+    drop_table :stacked_resources
   end
 end

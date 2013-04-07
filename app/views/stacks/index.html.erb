@@ -1,6 +1,8 @@
 <% title "Stacks" %>
 
-<table>
+<% title_actions display_link_if_authorized("New Stack", hash_for_new_stack_path), help_path %>
+
+<table class="table table-bordered table-striped">
   <tr>
     <th>Name</th>
     <th>Deployments</th>
@@ -16,5 +18,3 @@
     </tr>
   <% end %>
 </table>
-
-<p><%= link_to "New Stack", new_stack_path %></p>

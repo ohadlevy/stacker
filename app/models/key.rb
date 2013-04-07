@@ -1,4 +1,4 @@
-require 'foreman'
+require 'foreman/api'
 
 class Key < ActiveRecord::Base
   belongs_to :resource
@@ -14,12 +14,12 @@ class Key < ActiveRecord::Base
   default_scope :order => 'LOWER(keys.key)'
 
   def find_by_deployment id
-    external_key.find_value_by_deployment(id) || Foreman::LookupValue.new(:name => key, "lookup_key_id" => external_id)
+    external_key.find_value_by_deployment(id) || Foreman::API::LookupValue.new(:name => key, "lookup_key_id" => external_id)
   end
 
   private
   def external_key
-    @ext_key ||= Foreman::LookupKey.find(external_id)
+    @ext_key ||= Foreman::API::LookupKey.find(external_id)
   end
 
 end

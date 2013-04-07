@@ -1,4 +1,5 @@
 class Resource < ActiveRecord::Base
+  self.table_name = :stacked_resources
   attr_accessible :name, :type, :external_resource_id
   has_many :stack_resources, :dependent => :destroy
   has_many :stacks, :through => :stack_resources, :uniq => true

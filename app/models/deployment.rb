@@ -11,6 +11,7 @@ class Deployment < ActiveRecord::Base
   delegate :keys, :to => :stack
 
   after_save :initialize_resources, :create_resources_instances
+  after_destroy :remove_values
 
   def to_param
     name
@@ -32,7 +33,7 @@ class Deployment < ActiveRecord::Base
 
   def values_attributes=(attrs)
     attrs.values.each do |value|
-      Foreman::LookupValue.create value.update({:match => "deployment_id=#{id}"})
+      Foreman::API::LookupValue.create value.update({:match => "deployment_id=#{id}"})
     end
   end
 
@@ -68,4 +69,8 @@ class Deployment < ActiveRecord::Base
                     :uuid => uuid)
   end
   handle_asynchronously :deploy_instance
+
+  def remove_values
+    #TODO
+  end
 end

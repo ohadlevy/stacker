@@ -1,4 +1,4 @@
-require 'foreman'
+require 'foreman/api'
 
 class ForemanHostgroup < Resource
 
@@ -12,7 +12,7 @@ class ForemanHostgroup < Resource
 
   # List of resources templates we can provide
   def self.list
-    Foreman::Hostgroup.all.sort{|h,g| h.label <=> g.label}
+    Foreman::API::Hostgroup.all.sort{|h,g| h.label <=> g.label}
   end
 
   def name
@@ -28,13 +28,13 @@ class ForemanHostgroup < Resource
         :powerup      => true,
     }
     logger.info "Creating new resource instance #{attrs[:name]} in the #{deployment} deployment"
-    host = Foreman::Host.create(attrs.merge(attributes))
+    host = Foreman::API::Host.create(attrs.merge(attributes))
     return host if host
     raise "Failed to install host - #{host.errors}"
   end
 
   def destroy_instance(uuid)
-    Foreman::Host.delete(uuid)
+    Foreman::API::Host.delete(uuid)
   rescue ActiveResource::ResourceNotFound
     true
   end
@@ -61,7 +61,7 @@ class ForemanHostgroup < Resource
   end
 
   def external_id
-    Foreman::Hostgroup.find(external_resource_id)
+    Foreman::API::Hostgroup.find(external_resource_id)
   end
 
   def update_keys
