@@ -1,4 +1,4 @@
-<table>
+<table class="table">
   <tr>
     <th> Resources</th>
     <th> Parameters</th>
@@ -13,15 +13,14 @@
     </td>
     <td>
 
-      <%= f.fields_for :values do |value| %>
-        <%= value.label :value, value.object.name %>
+      <%= f.fields_for :lookup_values do |value| %>
         <%= value.hidden_field :lookup_key_id %>
         <% if value.object.name =~ /password/ -%>
-          <%= value.password_field :value, :size => 12 %><br>
+          <%= password_f value, :value %>
         <% else -%>
-          <%= value.text_field :value, :size => 12 %><br>
+          <%= text_f value, :value %>
         <% end -%>
-      <% end -%>
+      <% end %>
     </td>
   </tr>
 </table>

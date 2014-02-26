@@ -1,18 +1,14 @@
-require 'foreman/api'
-
 class ForemanHostgroup < Resource
 
   after_save :update_keys
 
-  # overrides the default class name
-  # this is required to use the form helpers with STI
-  def class;
-    Resource;
+  def self.model_name
+    superclass.model_name
   end
 
   # List of resources templates we can provide
   def self.list
-    Foreman::API::Hostgroup.all.sort{|h,g| h.label <=> g.label}
+    Hostgroup.scoped
   end
 
   def name
@@ -21,22 +17,24 @@ class ForemanHostgroup < Resource
 
   def create_instance deployment, attributes = {}
     attrs = {
-        :name         => host_name(deployment.to_s),
-        :hostgroup_id => external_resource_id,
-        :host_parameters_attributes => parameters(deployment),
-        :build        => true,
-        :powerup      => true,
+      :name            => host_name(deployment.to_s),
+      :hostgroup_id    => external_resource_id.to_i,
+      #TODO: simply parameters handling
+      :host_parameters => parameters(deployment),
+      :build           => true,
     }
     logger.info "Creating new resource instance #{attrs[:name]} in the #{deployment} deployment"
-    host = Foreman::API::Host.create(attrs.merge(attributes))
-    return host if host
-    raise "Failed to install host - #{host.errors}"
+    # TODO: move to async
+    host = Host.new(attrs.merge(attributes))
+    if host.save
+      host
+    else
+      raise "Failed to install host - #{host.errors.full_messages}"
+    end
   end
 
   def destroy_instance(uuid)
-    Foreman::API::Host.delete(uuid)
-  rescue ActiveResource::ResourceNotFound
-    true
+    Host.delete(uuid)
   end
 
   private
@@ -44,16 +42,9 @@ class ForemanHostgroup < Resource
   # Key Value pairs that would be added to an instance
   # these are plain foreman parameters
   def parameters deployment
-    {
-      :resource => name
-    }.merge(deployment.instance_attributes).map do |k,v|
-      instance_attribute(k,v)
+    deployment.instance_attributes.map do |k, v|
+      HostParameter.new(:name => k.to_s, :value => v.to_s, :nested => true)
     end
-  end
-
-  # helper method to construct the required parameters hash
-  def instance_attribute key,value
-    {:name => key, :value => value, :nested => ""}
   end
 
   def host_name deployment
@@ -61,11 +52,11 @@ class ForemanHostgroup < Resource
   end
 
   def external_id
-    Foreman::API::Hostgroup.find(external_resource_id)
+    Hostgroup.find(external_resource_id)
   end
 
   def update_keys
-    external_id.keys.each do |key|
+    external_id.puppetclasses.map(&:lookup_keys).flatten.each do |key|
       Key.find_or_create_by_external_id_and_resource_id_and_key(key.id, id, key.key)
     end
     #TODO: handle deletion of keys

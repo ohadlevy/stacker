@@ -22,10 +22,7 @@ class Resource < ActiveRecord::Base
 
   def self.class_for t
     logger.debug "trying to auto set resource sub class #{t}"
-    subclasses.each do |klass|
-     return eval(klass) if klass == t
-    end
-    nil
+    t.to_s.constantize if subclasses.include?(t)
   end
 
   # abstracted methods

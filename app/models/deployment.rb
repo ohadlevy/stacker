@@ -10,6 +10,8 @@ class Deployment < ActiveRecord::Base
   accepts_nested_attributes_for :stack_resources
   delegate :keys, :to => :stack
 
+  has_many :lookup_values, :finder_sql => Proc.new { LookupValue.where('lookup_values.match' => lookup_value_match).to_sql }, :dependent => :destroy
+
   after_save :initialize_resources, :create_resources_instances
   after_destroy :remove_values
 
@@ -25,18 +27,13 @@ class Deployment < ActiveRecord::Base
     { :deployment => to_s,:deployment_id => id }
   end
 
-  def values
-    keys.group(:resource_id).map do |key|
-      key.find_by_deployment(id)
-    end
+  def lookup_values_attributes=(attrs)
+    super(attrs.merge(:match => lookup_value_match))
   end
 
-  def values_attributes=(attrs)
-    attrs.values.each do |value|
-      Foreman::API::LookupValue.create value.update({:match => "deployment_id=#{id}"})
-    end
+  def lookup_value_match
+    "deployment_id=#{id}"
   end
-
   private
   # ensure that stack resources are assigned to our deployment
   # this can run on every update, however it does not handle when the stack deletes resources.
@@ -68,7 +65,6 @@ class Deployment < ActiveRecord::Base
                     :deployment_id => deployment.id,
                     :uuid => uuid)
   end
-  handle_asynchronously :deploy_instance
 
   def remove_values
     #TODO

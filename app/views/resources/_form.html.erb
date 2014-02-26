@@ -1,18 +1,13 @@
 <%= form_for @resource do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :type %>
-    <%= f.select :type, Resource.subclasses.collect{|r| [r.titleize, r ] } %>
-  </p>
+  <%= base_errors_for @resource %>
+  <%= selectable_f f, :type, Resource.subclasses.collect{|r| [r.titleize, r ] } %>
 
-  <p>
-    <%= f.label :external_resource_id, "Template" %>
-    <% if @resource.new_record? -%>
-      <%= f.collection_select :external_resource_id, ForemanHostgroup.list, :id, :label %>
-    <% else -%>
-      <%= f.text_field :name %>
-    <% end -%>
-  </p>
+  <% if @resource.new_record? -%>
+    <%= select_f f, :external_resource_id, ForemanHostgroup.list, :id, :title %>
+  <% else -%>
+    <%= text_f f, :name %>
+  <% end -%>
 
-  <p><%= f.submit %></p>
+  <%= submit_or_cancel f %>
+
 <% end %>

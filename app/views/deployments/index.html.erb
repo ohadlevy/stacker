@@ -1,24 +1,22 @@
-<% title "Deployments" %>
+<% title _("Deployments") %>
+<% title_actions display_link_if_authorized(_("New Deployment"), hash_for_new_deployment_path), help_path %>
 
-<table>
+<table class="table table-bordered table-striped table-two-pane">
   <tr>
     <th>Name</th>
     <th>Stack</th>
     <th>Instances</th>
     <th></th>
   </tr>
-  <% for deployment in @deployments %>
+  <% @deployments.each do |deployment| %>
     <tr>
-      <td><%= deployment.name %></td>
+      <td><%= link_to_if_authorized(deployment, hash_for_edit_deployment_path(deployment)) %></td>
       <td><%= deployment.stack %></td>
       <td><%= deployment.instances.count %></td>
       <td>
-        <%= link_to "Show", deployment %>
-        <%= link_to "Edit", edit_deployment_path(deployment) %>
-        <%= link_to "Destroy", deployment, :confirm => 'Are you sure?', :method => :delete %>
+         <%= action_buttons(
+        display_delete_if_authorized(hash_for_deployment_path(:id => deployment), :confirm => _("Delete %s?") % deployment.name))%>
       </td>
     </tr>
   <% end %>
 </table>
-
-<p><%= link_to "New Deployment", new_deployment_path %></p>

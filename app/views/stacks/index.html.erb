@@ -2,14 +2,14 @@
 
 <% title_actions display_link_if_authorized("New Stack", hash_for_new_stack_path), help_path %>
 
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped table-two-pane">
   <tr>
     <th>Name</th>
     <th>Deployments</th>
     <th>Resources</th>
     <th></th>
   </tr>
-  <% for stack in @stacks %>
+  <% @stacks.each do |stack| %>
     <tr>
       <td><%= link_to stack.name, edit_stack_path(stack) %></td>
       <td><%= stack.deployments.count %></td>

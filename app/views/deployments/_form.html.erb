@@ -1,12 +1,8 @@
 <%= form_for @deployment do |f| %>
-  <%= f.error_messages %>
-  <p>
-  <%= f.label :name %>
-  <%= f.text_field :name, :size => 12 %>
-  <%= f.label :stack_id %>
-  <%= f.collection_select :stack_id, Stack.all, :id, :name %>
-  </p>
+  <%= base_errors_for @deployment %>
+  <%= text_f f, :name %>
+  <%= select_f f, :stack_id, Stack.all, :id, :name %>
 
-  <%= render "settings", :f =>f unless @deployment.new_record? %>
-  <p><%= f.submit %></p>
+  <%= render "settings", :f => f unless @deployment.new_record? %>
+  <%= submit_or_cancel f %>
 <% end %>

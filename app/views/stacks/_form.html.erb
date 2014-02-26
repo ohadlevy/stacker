@@ -1,18 +1,25 @@
 <%= form_for @stack do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <h4>Resources</h4>
-  <p> <%= edit_habtm @stack, Resource %> </p>
+  <%= base_errors_for @stack %>
+  <ul class="nav nav-tabs" data-tabs="tabs">
+    <li class="active"><a href="#primary" data-toggle="tab"><%= _("Stack") %></a></li>
+    <li><a href="#parameters" data-toggle="tab"><%= _("Parameters") %></a></li>
+  </ul>
 
-  <h4>Variables</h4>
-  <% @stack.resources.each do |res| %>
-    <h5> <%= res %></h5>
+  <div class="tab-content">
+    <div class="tab-pane active" id="primary">
+      <%= text_f f, :name %>
 
-    <p> <%= edit_habtm @stack, res.keys %> </p>
-  <% end -%>
+      <%= multiple_checkboxes f, :resources, @stack, Resource %>
+    </div>
 
-  <p><%= f.submit %></p>
+    <div class="tab-pane" id="parameters">
+      <h4> <%= _('Please select Parameters you are interested in') %></h4>
+      <% @stack.resources.each do |resource| %>
+        <%= multiple_checkboxes f, :keys, @stack, resource.keys, :label => resource %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= submit_or_cancel f %>
+
 <% end %>
